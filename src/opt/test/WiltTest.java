@@ -22,7 +22,7 @@ import java.text.*;
 public class WiltTest {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 7, hiddenLayer = 5, outputLayer = 1, trainingIterations = 1000;
+    private static int inputLayer = 5, hiddenLayer = 3, outputLayer = 1, trainingIterations = 1000;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -119,7 +119,7 @@ public class WiltTest {
                 attributes[i][0] = new double[5]; // 5 attributes
                 attributes[i][1] = new double[1];
 
-                for(int j = 0; j < 7; j++)
+                for(int j = 0; j < 5; j++)
                     attributes[i][0][j] = Double.parseDouble(scan.next());
 
                 attributes[i][1][0] = Double.parseDouble(scan.next());
@@ -133,7 +133,7 @@ public class WiltTest {
 
         for(int i = 0; i < instances.length; i++) {
             instances[i] = new Instance(attributes[i][0]);
-            instances[i].setLabel(new Instance(attributes[i][1][0]));
+            instances[i].setLabel(attributes[i][1][0]);
         }
 
         return instances;

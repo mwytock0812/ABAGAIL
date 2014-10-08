@@ -22,7 +22,7 @@ import java.text.*;
 public class FiresTest {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 7, hiddenLayer = 5, outputLayer = 1, trainingIterations = 1000;
+    private static int inputLayer = 10, hiddenLayer = 8, outputLayer = 1, trainingIterations = 1000;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -109,7 +109,7 @@ public class FiresTest {
         double[][][] attributes = new double[345][][]; // 345 instances
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File("src/opt/test/abalone.txt")));
+            BufferedReader br = new BufferedReader(new FileReader(new File("src/opt/test/fires_training.txt")));
 
             for(int i = 0; i < attributes.length; i++) {
                 Scanner scan = new Scanner(br.readLine());
@@ -119,7 +119,7 @@ public class FiresTest {
                 attributes[i][0] = new double[10]; // 10 attributes
                 attributes[i][1] = new double[1];
 
-                for(int j = 0; j < 7; j++)
+                for(int j = 0; j < 10; j++)
                     attributes[i][0][j] = Double.parseDouble(scan.next());
 
                 attributes[i][1][0] = Double.parseDouble(scan.next());
@@ -134,7 +134,6 @@ public class FiresTest {
         for(int i = 0; i < instances.length; i++) {
             instances[i] = new Instance(attributes[i][0]);
             instances[i].setLabel(new Instance(attributes[i][1][0] > 0 ? 1 : 0));
-            System.out.println(instances[i]);
         }
 
         return instances;
