@@ -75,13 +75,28 @@ public class WiltTest {
             testingTime = end - start;
             testingTime /= Math.pow(10,9);
 
-            results +=  "\nResults for " + oaNames[i] + ": \nCorrectly classified " + correct + " instances." +
-                        "\nIncorrectly classified " + incorrect + " instances.\nPercent correctly classified: "
-                        + df.format(correct/(correct+incorrect)*100) + "%\nTraining time: " + df.format(trainingTime)
-                        + " seconds\nTesting time: " + df.format(testingTime) + " seconds\n";
+	    // Print percent corrent, training time, and testing time separated by commas
+	    results +=  df.format(correct/(correct+incorrect)*100) + "," + df.format(trainingTime) +
+                        "," + df.format(testingTime) + ",";
         }
 
-        System.out.println(results);
+	// Format output to a single line that can be copied into a text doc for copying to CSV
+	// InputSize, HiddenSize, OutputSize, Iterations, RHC_percent, RHC_train_time, RHC_test_time, etc.
+	results = String.valueOf(inputLayer) + "," +
+	    String.valueOf(hiddenLayer) + ","  +
+	    String.valueOf(outputLayer) + "," +
+	    String.valueOf(trainingIterations) + ","  +
+	    results.substring(0, results.length() - 1);
+
+	// Write output to CSV file
+	System.out.println(results);
+	try (Writer writer = new BufferedWriter(new FileWriter("/Users/Mike/Documents/OMSCS/ML/Projects/Randomized Optimization/data/weight_optimization.csv", true))) {
+	    writer.append("\n" + results);
+	}
+	catch (IOException e) {
+            e.printStackTrace();
+        }
+	
     }
 
     private static void train(OptimizationAlgorithm oa, BackPropagationNetwork network, String oaName) {
@@ -109,7 +124,7 @@ public class WiltTest {
         double[][][] attributes = new double[4339][][]; // 4339 instances
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File("src/opt/test/wilt_training.txt")));
+            BufferedReader br = new BufferedReader(new FileReader(new File("/Users/Mike/Documents/OMSCS/ML/ABAGAIL/src/opt/test/wilt_training.txt")));
 
             for(int i = 0; i < attributes.length; i++) {
                 Scanner scan = new Scanner(br.readLine());
@@ -133,7 +148,7 @@ public class WiltTest {
 
         for(int i = 0; i < instances.length; i++) {
             instances[i] = new Instance(attributes[i][0]);
-            instances[i].setLabel(attributes[i][1][0]);
+            instances[i].setLabel(new Instance(attributes[i][1][0]));
         }
 
         return instances;
