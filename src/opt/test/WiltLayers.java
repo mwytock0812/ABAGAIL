@@ -19,10 +19,10 @@ import java.text.*;
  * @author Hannah Lau
  * @version 1.0
  */
-public class WiltTest {
+public class WiltLayers {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 5, hiddenLayer = 3, outputLayer = 1, trainingIterations = 1000;
+    private static int inputLayer = 6, hiddenLayer = 10, outputLayer = 1, trainingIterations = 100;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -90,7 +90,7 @@ public class WiltTest {
 
 	// Write output to CSV file
 	System.out.println(results);
-	try (Writer writer = new BufferedWriter(new FileWriter("/Users/Mike/Documents/OMSCS/ML/Projects/Randomized Optimization/data/weight_optimization.csv", true))) {
+	try (Writer writer = new BufferedWriter(new FileWriter("/Users/Mike/Documents/OMSCS/ML/Projects/Randomized Optimization/data/weight_optimization_layers.csv", true))) {
 	    writer.append("\n" + results);
 	}
 	catch (IOException e) {

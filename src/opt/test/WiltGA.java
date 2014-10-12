@@ -19,10 +19,10 @@ import java.text.*;
  * @author Hannah Lau
  * @version 1.0
  */
-public class WiltTest {
+public class WiltGA {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 5, hiddenLayer = 3, outputLayer = 1, trainingIterations = 1000;
+    private static int inputLayer = 5, hiddenLayer = 3, outputLayer = 1, trainingIterations = 100;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
@@ -46,10 +46,10 @@ public class WiltTest {
         }
 
         oa[0] = new RandomizedHillClimbing(nnop[0]);
-        oa[1] = new SimulatedAnnealing(1E11, .3, nnop[1]);
+        oa[1] = new SimulatedAnnealing(1E11, .95, nnop[1]);
         oa[2] = new StandardGeneticAlgorithm(200, 5, 10, nnop[2]);
 
-        for(int i = 0; i < oa.length; i++) {
+        for(int i = 2; i < 3; i++) {
             double start = System.nanoTime(), end, trainingTime, testingTime, correct = 0, incorrect = 0;
             train(oa[i], networks[i], oaNames[i]); //trainer.train();
             end = System.nanoTime();
@@ -81,16 +81,19 @@ public class WiltTest {
         }
 
 	// Format output to a single line that can be copied into a text doc for copying to CSV
-	// InputSize, HiddenSize, OutputSize, Iterations, RHC_percent, RHC_train_time, RHC_test_time, etc.
+	// InputSize, HiddenSize, OutputSize, Iterations, populationSize, toMate, toMutate, Percent Correct, Train time, Test time
 	results = String.valueOf(inputLayer) + "," +
 	    String.valueOf(hiddenLayer) + ","  +
 	    String.valueOf(outputLayer) + "," +
 	    String.valueOf(trainingIterations) + ","  +
+	    "200" + "," +
+	    "5" + "," +
+	    "10" + "," +
 	    results.substring(0, results.length() - 1);
 
 	// Write output to CSV file
 	System.out.println(results);
-	try (Writer writer = new BufferedWriter(new FileWriter("/Users/Mike/Documents/OMSCS/ML/Projects/Randomized Optimization/data/weight_optimization.csv", true))) {
+	try (Writer writer = new BufferedWriter(new FileWriter("/Users/Mike/Documents/OMSCS/ML/Projects/Randomized Optimization/data/weight_optimization_ga.csv", true))) {
 	    writer.append("\n" + results);
 	}
 	catch (IOException e) {
