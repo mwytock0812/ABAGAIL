@@ -22,7 +22,7 @@ import java.text.*;
 public class WiltLayers {
     private static Instance[] instances = initializeInstances();
 
-    private static int inputLayer = 6, hiddenLayer = 10, outputLayer = 1, trainingIterations = 100;
+    private static int inputLayer = 6, hiddenLayer = 9, outputLayer = 1, trainingIterations = 1;
     private static BackPropagationNetworkFactory factory = new BackPropagationNetworkFactory();
     
     private static ErrorMeasure measure = new SumOfSquaresError();
