@@ -75,7 +75,6 @@ public class KnapsackTest {
         RandomizedHillClimbing rhc = new RandomizedHillClimbing(hcp);
         FixedIterationTrainer fit = new FixedIterationTrainer(rhc, 200000);
         fit.train();
-        System.out.println("RHC: " + ef.value(rhc.getOptimal()));
         rhcEnd = System.nanoTime();
         rhcTime = rhcEnd - rhcStart;
         rhcTime /= Math.pow(10,9);
@@ -85,7 +84,6 @@ public class KnapsackTest {
         SimulatedAnnealing sa = new SimulatedAnnealing(100, .95, hcp);
         fit = new FixedIterationTrainer(sa, 200000);
         fit.train();
-        System.out.println("SA: " + ef.value(sa.getOptimal()));
         saEnd = System.nanoTime();
         saTime = saEnd - saStart;
         saTime /= Math.pow(10,9);
@@ -95,7 +93,6 @@ public class KnapsackTest {
         StandardGeneticAlgorithm ga = new StandardGeneticAlgorithm(200, 150, 25, gap);
         fit = new FixedIterationTrainer(ga, 1000);
         fit.train();
-        System.out.println("GA: " + ef.value(ga.getOptimal()));
         gaEnd = System.nanoTime();
         gaTime = gaEnd - gaStart;
         gaTime /= Math.pow(10,9);
@@ -105,7 +102,6 @@ public class KnapsackTest {
         MIMIC mimic = new MIMIC(200, 100, pop);
         fit = new FixedIterationTrainer(mimic, 1000);
         fit.train();
-        System.out.println("MIMIC: " + ef.value(mimic.getOptimal()));
         mimicEnd = System.nanoTime();
         mimicTime = mimicEnd - mimicStart;
         mimicTime /= Math.pow(10,9);
